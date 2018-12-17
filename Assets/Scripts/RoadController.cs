@@ -54,10 +54,10 @@ public class RoadController : MonoBehaviour
     {
         RoadSegment newSeg = Instantiate(instance.RoadSegPrefab, instance.nextRoadPos.position, instance.nextRoadPos.rotation, instance.transform).GetComponent<RoadSegment>();
         instance.MostRecentSegment = newSeg.gameObject;
-        newSeg.CreateRoadSegment(2, 5);
+        newSeg.CreateSegment(2, 5);
         //newSeg.transform.parent = transform;
         Road.Add(newSeg);
-        instance.nextRoadPos.position += newSeg.SegmentEndPos;
+        instance.nextRoadPos.position += newSeg.segmentEndPos;
         if (Random.value > 0.9f)
         {
             SpawnAnimal();
