@@ -10,7 +10,7 @@ public abstract class Segment : MonoBehaviour
     public Vector3 segmentEndPos;
     public Vector2 Dimensions;
 
-    Vector3[] Vertices = new Vector3[4];
+    public Vector3[] Vertices = new Vector3[4];
 
     public virtual Segment CreateSegment(float _Width, float _Height)
     {
@@ -34,11 +34,15 @@ public abstract class Segment : MonoBehaviour
     }*/
     public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position)
     {
+        return CreateSegment(_Dimensions, _Position, 0, -1, 0, -1);
+    }
+    public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position, float _CornerVertexY, int _Vertex, float _OldVertPos, int _OldVert)
+    {
         Dimensions = _Dimensions;
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         GetComponent<MeshRenderer>().material = material;
 
-        meshFilter.mesh = TerrainMeshCreation.CreateQuad(_Dimensions, _Position, out Vertices);
+        meshFilter.mesh = TerrainMeshCreation.CreateQuad(_Dimensions, _Position, out Vertices, _CornerVertexY, _Vertex, _OldVertPos, _OldVert);
 
         segmentEndPos = new Vector3(0, 0, _Dimensions.y);
 

@@ -14,6 +14,10 @@ public static class TerrainMeshCreation
         return CreateQuad(_Dimensions, _Position, out outTemp);
     }
     public static Mesh CreateQuad(Vector2 _Dimensions, Vector3 _Position, out Vector3[] _Vertices)
+    {
+        return CreateQuad(_Dimensions, _Position, out _Vertices, 0, -1, 0, -1);
+    }
+    public static Mesh CreateQuad(Vector2 _Dimensions, Vector3 _Position, out Vector3[] _Vertices,  float _CornerVertexY, int _Vertex, float _OldVertPos, int _OldVert)
 	{
         Mesh mesh = new Mesh();
 
@@ -23,6 +27,16 @@ public static class TerrainMeshCreation
 			new Vector3(0, 0, _Dimensions.y) + _Position,
 			new Vector3(_Dimensions.x, 0, _Dimensions.y) + _Position,
 		};
+        if(_Vertex != -1)
+        {
+            //Debug.Log(_CornerVertexY);
+            vertices[_Vertex] = new Vector3(vertices[_Vertex].x, _CornerVertexY, vertices[_Vertex].z);
+        }
+        if(_OldVert != -1)
+        {
+            vertices[_OldVert] = new Vector3(vertices[_OldVert].x, _OldVertPos, vertices[_OldVert].z);
+            
+        }
 
         _Vertices = vertices;
 
