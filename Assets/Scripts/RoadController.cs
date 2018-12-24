@@ -13,7 +13,9 @@ public class RoadController : MonoBehaviour
     public static RoadController instance;
     GameObject MostRecentSegment;
 
-    public int RoadLength = 25;
+    PerlinControlledNumber RoadDirection = new PerlinControlledNumber();
+
+    public int RoadLength = 40;
     public float EagleFreqSecs = 25;
     [Range(0, 1)]
     public float EagleSpawnChance = 0.2f;
@@ -30,6 +32,7 @@ public class RoadController : MonoBehaviour
 
     void Awake()
     {
+        RoadDirection.SetOffset();
         instance = this;
         UpdateRoadCount();
         //InvokeRepeating("SpawnEagle", EagleFreqSecs, EagleFreqSecs);
@@ -62,10 +65,6 @@ public class RoadController : MonoBehaviour
         {
             SpawnAnimal();
         }
-
-
-        //GrassSegment GSeg = Instantiate(instance.GSegPrefab, instance.nextRoadPos.position, instance.nextRoadPos.rotation, instance.transform).GetComponent<GrassSegment>();
-        //GSeg.CreateGrassSegment(7, 5);
     }
 
     public static void SpawnAnimal()
@@ -111,4 +110,5 @@ public class RoadController : MonoBehaviour
             }
         }
     }
+
 }

@@ -9,7 +9,7 @@ public class PerlinControlledNumber
         get { return CalcVal(); }
     }
     public float Offset;
-    public float Resolution = 3f;
+    public float Resolution = 15f;
     public Vector2 Coords;
     public float x
     {
@@ -34,7 +34,11 @@ public class PerlinControlledNumber
     {
         ValueInc();
         //Debug.Log(Mathf.PerlinNoise(x + Offset / Resolution, y + Offset / Resolution));
-        return Mathf.PerlinNoise(x + Offset / Resolution, y + Offset / Resolution);
+        return Mathf.PerlinNoise((x + Offset) / Resolution, (y + Offset) / Resolution);
+    }
+    public float CalcCustomVal(Vector2 _Coords)
+    {  
+        return Mathf.PerlinNoise((x + _Coords.x + Offset) / Resolution, (y + _Coords.y + Offset) / Resolution);
     }
     public void SetOffset()
     {

@@ -20,29 +20,37 @@ public abstract class Segment : MonoBehaviour
     {
         return CreateSegment(_Dimensions, new Vector3(0, 0, 0));
     }
-    /*public virtual Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position)
-    {
-        Dimensions = _Dimensions;
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        GetComponent<MeshRenderer>().material = material;
-
-        meshFilter.mesh = TerrainMeshCreation.CreateQuad(_Dimensions, _Position);
-
-        segmentEndPos = new Vector3(0, 0, _Dimensions.y);
-
-        return this;
-    }*/
     public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position)
     {
         return CreateSegment(_Dimensions, _Position, 0, -1, 0, -1);
     }
-    public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position, float _CornerVertexY, int _Vertex, float _OldVertPos, int _OldVert)
+    public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position, float _CornerVertexY, int _Vertex, float _OldVertYPos, int _OldVert)
+    {
+        Vector3[] tVerts = {
+        new Vector3(-1, -1, -1),
+        new Vector3(-1, -1, -1),
+        new Vector3(-1, -1, -1),
+        new Vector3(-1, -1, -1),
+        };
+
+        if (_Vertex != -1)
+        {
+            tVerts[_Vertex].y = _CornerVertexY;
+        }
+        if (_OldVert != -1)
+        {
+            tVerts[_OldVert].y = _OldVertYPos;
+        }
+
+        return CreateSegment(_Dimensions, _Position, tVerts);
+    }
+    public Segment CreateSegment(Vector2 _Dimensions, Vector3 _Position, Vector3[] _Verts)
     {
         Dimensions = _Dimensions;
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         GetComponent<MeshRenderer>().material = material;
 
-        meshFilter.mesh = TerrainMeshCreation.CreateQuad(_Dimensions, _Position, out Vertices, _CornerVertexY, _Vertex, _OldVertPos, _OldVert);
+        meshFilter.mesh = TerrainMeshCreation.CreateQuad(_Dimensions, _Position, out Vertices, _Verts);
 
         segmentEndPos = new Vector3(0, 0, _Dimensions.y);
 
